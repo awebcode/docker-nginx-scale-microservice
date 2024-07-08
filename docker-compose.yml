@@ -5,13 +5,21 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+    deploy:
+      mode: replicated
+      replicas: 2
     restart: always
+     #this is for without --scale tag auto create multiple containers in the same port for load balancing nginx
   client:
     build: ./client
     command: npm run start #should use nodemon when changes found then restart server
     volumes:
       - ./client:/usr/src/client
       - /usr/src/client/node_modules
+  
+    deploy:
+      mode: replicated
+      replicas: 2
     restart: always
   nginx:
     image: nginx:1.25-alpine3.17
