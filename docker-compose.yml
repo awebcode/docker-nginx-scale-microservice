@@ -8,6 +8,14 @@ services:
     deploy:
       mode: replicated
       replicas: 2
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+          pids: 1
+        reservations:
+          cpus: '0.25'
+          memory: 20M
     restart: always
      #this is for without --scale tag auto create multiple containers in the same port for load balancing nginx
   client:
